@@ -143,16 +143,24 @@ void play(int w, int m, int maxRound, int *nowRound, char *userKey)
     if ((*nowRound < maxRound) && (w != 4) && (checker_char(userKey)))
     {                   
         printf("Well placed pieces: %i\nMiss placed pieces: %i\n", w, m);
+      if (*nowRound<maxRound-1)
+      {
+         printf("---\nRound %i\n", *nowRound+1);
+      }
     }                                                    
     if (!(checker_char(userKey)))
     {
         printf("Wrong input\n");
         *nowRound -= 1;
+        
     }
-    if (w == 4)
+    else
     {
+      if (w == 4)
+      {
         printf("Congratz! You did it!");
         *nowRound = maxRound;
+      }
     }
 }
 
@@ -161,7 +169,6 @@ char *my_scanf(int round)
     int i = 0;
     char c;
     char *codem = malloc(sizeof(char) * 6);
-    printf("---\nRound %i\n", round);
     write(1, ">", 1);
     while (read(0, &c, 1))
     {
@@ -184,7 +191,9 @@ int main(int argc, char *argv[])
 {
     char *key = my_Key(argc, argv),*userKey; 
     int round = my_Round(argc, argv);
-    printf("Will you find the secret code?  \nPlease enter a valid guess\n");
+    printf("Will you find the secret code?  \nPlease enter a valid guess\n---\nRound %i\n", 0);
+
+
 
     for (int i = 0; i < round; i++)
     {
